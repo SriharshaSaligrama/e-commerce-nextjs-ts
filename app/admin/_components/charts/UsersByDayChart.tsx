@@ -1,0 +1,34 @@
+'use client'
+
+import { formatNumber } from "@/lib/formatter"
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+
+type UsersByDayChartProps = {
+    data: {
+        date: string
+        totalUsers: number
+    }[]
+}
+
+const UsersByDayChart = ({ data }: UsersByDayChartProps) => {
+    return (
+        <ResponsiveContainer width={'100%'} minHeight={300}>
+            <BarChart data={data}>
+                <CartesianGrid stroke="hsl(var(--muted))" />
+                <XAxis dataKey={'date'} stroke="hsl(var(--primary))" />
+                <YAxis tickFormatter={value => formatNumber(value)} stroke="hsl(var(--primary))" />
+                <Tooltip
+                    cursor={{ fill: 'hsl(var(--muted))' }}
+                    formatter={value => formatNumber(value as number)}
+                />
+                <Bar
+                    dataKey={'totalUsers'}
+                    name="New Customers"
+                    stroke="hsl(var(--primary))"
+                />
+            </BarChart>
+        </ResponsiveContainer>
+    )
+}
+
+export default UsersByDayChart
